@@ -1,0 +1,135 @@
+@use '@angular/material' as mat;
+@import '@angular/material/theming';
+@include mat-core();
+
+$mayday-font-family: 'Kanit', sans-serif !default;
+
+$mayday-headline-typography: mat.define-typography-level(32px, 120%, 600, $mayday-font-family, 0) !default;
+$mayday-title-typography: mat.define-typography-level(24px, 120%, 600, $mayday-font-family, 0) !default;
+$mayday-subheading-2-typography: mat.define-typography-level(20px, 120%, 600, $mayday-font-family, 0) !default;
+$mayday-subheading-1-typography: mat.define-typography-level(16px, 120%, 600, $mayday-font-family, 0) !default;
+
+$mayday-typography: mat.define-typography-config(
+  $font-family: $mayday-font-family,
+  $headline: $mayday-headline-typography,
+  $title: $mayday-title-typography,
+  $subheading-2: $mayday-subheading-2-typography,
+  $subheading-1: $mayday-subheading-1-typography,
+);
+
+$mayday-primary-color: (
+  50 : #f2e5e4,
+  100 : #dfbebc,
+  200 : #ca928f,
+  300 : #b46662,
+  400 : #a44640,
+  500 : #94251e,
+  600 : #8c211a,
+  700 : #811b16,
+  800 : #771612,
+  900 : #650d0a,
+  A100 : #ff9a97,
+  A200 : #ff6864,
+  A400 : #ff3631,
+  A700 : #ff1d18,
+  contrast: (
+      50 : #000000,
+      100 : #000000,
+      200 : #000000,
+      300 : #ffffff,
+      400 : #ffffff,
+      500 : #ffffff,
+      600 : #ffffff,
+      700 : #ffffff,
+      800 : #ffffff,
+      900 : #ffffff,
+      A100 : #000000,
+      A200 : #000000,
+      A400 : #ffffff,
+      A700 : #ffffff,
+  )
+);
+
+$mayday-secondary-color: (
+    50 : #eef0f2,
+    100 : #d4d9de,
+    200 : #b8c0c8,
+    300 : #9ba6b1,
+    400 : #8593a1,
+    500 : #708090,
+    600 : #687888,
+    700 : #5d6d7d,
+    800 : #536373,
+    900 : #415061,
+    A100 : #bbdbff,
+    A200 : #88c0ff,
+    A400 : #55a5ff,
+    A700 : #3b97ff,
+    contrast: (
+        50 : #000000,
+        100 : #000000,
+        200 : #000000,
+        300 : #000000,
+        400 : #000000,
+        500 : #ffffff,
+        600 : #ffffff,
+        700 : #ffffff,
+        800 : #ffffff,
+        900 : #ffffff,
+        A100 : #000000,
+        A200 : #000000,
+        A400 : #000000,
+        A700 : #000000,
+    )
+);
+
+$mayday-tertiary-color: (
+  50 : #f2e5e4,
+  100 : #dfbebc,
+  200 : #ca928f,
+  300 : #b46662,
+  400 : #a44640,
+  500 : #94251e,
+  600 : #8c211a,
+  700 : #811b16,
+  800 : #771612,
+  900 : #650d0a,
+  A100 : #ff9a97,
+  A200 : #ff6864,
+  A400 : #ff3631,
+  A700 : #ff1d18,
+  contrast: (
+      50 : #000000,
+      100 : #000000,
+      200 : #000000,
+      300 : #ffffff,
+      400 : #ffffff,
+      500 : #ffffff,
+      600 : #ffffff,
+      700 : #ffffff,
+      800 : #ffffff,
+      900 : #ffffff,
+      A100 : #000000,
+      A200 : #000000,
+      A400 : #ffffff,
+      A700 : #ffffff,
+  )
+);
+
+$mayday-primary-palette: mat-palette($mayday-primary-color);
+$mayday-secondary-palette: mat-palette($mayday-secondary-color);
+$mayday-tertiary-palette: mat-palette($mayday-tertiary-color);
+
+$mayday-light-theme: mat-light-theme((
+  color:(
+    primary: $mayday-primary-palette,
+    accent: $mayday-secondary-palette,
+    warn: $mayday-tertiary-palette
+  ),
+  typography: $mayday-typography
+));
+
+$color-config: mat.get-color-config($mayday-light-theme);
+
+@include angular-material-theme($mayday-light-theme);
+@include mat-core($mayday-typography);

@@ -1,0 +1,10 @@
+<ng-container *ngIf="dataset">
+  <div class="mat-elevation-z2 chart" [ngClass]="{'d-none': !dataset.selected}">
+    <button mat-icon-button class="chart__close" (click)="dataset.selected = false">
+      <mat-icon>close</mat-icon>
+    </button>
+    <div [chart]="chart" class="chart__render" *ngIf="dataset.selected"></div>
+  </div>
+</ng-container>
+
+

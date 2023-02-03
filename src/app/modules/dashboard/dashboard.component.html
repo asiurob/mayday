@@ -1,0 +1,159 @@
+<div class="dashboard fade">
+  <mat-toolbar color="primary">
+    <button mat-icon-button (click)="snav.toggle()" *ngIf="mobileQuery.matches">
+      <mat-icon>
+        {{ snav.opened ? 'close' : 'menu' }}
+      </mat-icon>
+    </button>
+    <h1 class="dashboard__mayday">
+      MAYDAY
+    </h1>
+    <span class="dashboard__spacer"></span>
+    <img src="assets/images/dan.jpg" alt="user" class="dashboard__avatar">
+    <h2 class="dashboard__person">
+      Daniel Becerril
+    </h2>
+    <mat-icon class="dashboard__power-off" (click)="logout()">
+      power_settings_new
+    </mat-icon>
+  </mat-toolbar>
+
+  <mat-sidenav-container
+    [hasBackdrop]="mobileQuery.matches"
+    (backdropClick)="snav.close()"
+    class="dashboard__sidenav-container">
+    <mat-sidenav class="dashboard__sidenav"
+      #snav [mode]="mobileQuery.matches ? 'over' : 'push'"
+            [fixedInViewport]="false"
+            [opened]="!firstJoin && !mobileQuery.matches"
+            fixedTopGap="56">
+      <img src="assets/images/logo.png" class="dashboard__logo">
+      <mat-divider></mat-divider>
+      <ng-container *ngIf="!firstJoin">
+        <button
+        (click)="addDataset()"
+        mat-raised-button
+        color="accent"
+        class="w-75 mt-3 mx-auto d-block">
+        Nuevo conjunto
+      </button>
+      <mat-nav-list>
+        <udl-dataset
+          *ngFor="let dataset of datasets"
+          [dataset]="dataset"
+        >
+        </udl-dataset>
+      </mat-nav-list>
+      </ng-container>
+    </mat-sidenav>
+
+    <mat-sidenav-content class="dashboard__content">
+      <div class="container-fluid h-75">
+        <div class="row">
+          <div class="col-1" [ngClass]="{'offset-10': mobileQuery.matches, 'offset-11': !mobileQuery.matches}">
+            <button
+              *ngIf="!filterNav.opened"
+              mat-mini-fab
+              (click)="filterNav.toggle()"
+              color="primary"
+              class="dashboard__filter-button">
+              <mat-icon>filter_alt</mat-icon>
+
+            </button>
+          </div>
+        </div>
+        <div class="row" cdkDropList (cdkDropListDropped)="drop($event)">
+          <div
+            class="col-sm-12"
+            *ngFor="let dataset of datasets"
+            >
+            <udl-line-chart
+              cdkDrag
+              [dataset]="dataset"
+              (selectedPoint)="selectedPoint($event)"
+              >
+            </udl-line-chart>
+          </div>
+        </div>
+        <div class="row h-100" *ngIf="activeCharts().length === 0">
+          <div class="col-12">
+            <h1 class="dashboard__empty-state">
+              {{
+                firstJoin ?
+                'Aplica filtros' :
+                'Selecciona un conjunto de datos'
+              }}
+            </h1>
+          </div>
+        </div>
+      </div>
+    </mat-sidenav-content>
+
+    <mat-sidenav class="dashboard__sidenav-filters"
+          #filterNav
+          position="end"
+          [mode]="mobileQuery.matches ? 'over' : 'side'"
+          [fixedInViewport]="false"
+          [opened]="firstJoin"
+          fixedTopGap="56">
+          <button mat-icon-button (click)="filterNav.toggle()">
+            <mat-icon>
+              close
+            </mat-icon>
+          </button>
+          <div class="row">
+            <div class="col-12">
+              <h1 class="dashboard__filter-title">
+                Filtros
+              </h1>
+            </div>
+            <form [formGroup]="filtersFormGroup">
+              <div class="col-12 px-3">
+                <mat-form-field class="w-100" appearance="outline">
+                  <mat-label>Temporalidad</mat-label>
+                  <mat-date-range-input [formGroup]="range" [rangePicker]="picker">
+                    <input matStartDate formControlName="start" placeholder="Fecha inicial">
+                    <input matEndDate formControlName="end" placeholder="Fecha final">
+                  </mat-date-range-input>
+                  <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                  <mat-date-range-picker #picker></mat-date-range-picker>
+                  <mat-error *ngIf="range.invalid">
+                    Elige un rango de fechas
+                  </mat-error>
+                </mat-form-field>
+              </div>
+              <div class="col-12 px-3" *ngFor="let filter of filters">
+                <mat-form-field class="w-100" appearance="outline">
+                  <mat-label>{{ filter.label }}</mat-label>
+                    <mat-select [formControlName]="filter.formControl" [multiple]="filter.multiple">
+                      <mat-option *ngFor="let option of filter.options" [value]="option.value">
+                        {{ option.label }}
+                      </mat-option>
+                    </mat-select>
+                    <mat-error>Este filtro es obligatorio</mat-error>
+                </mat-form-field>
+              </div>
+              <div class="col-12 d-flex">
+                <button
+                  [disabled]="disableFilters()"
+                  mat-raised-button
+                  color="primary"
+                  class="w-50 d-block mx-auto"
+                  (click)="applyFilters()">
+                  Aplicar filtros
+                </button>
+                <button
+                  mat-stroked-button
+                  color="secondary"
+                  class="w-25 d-block mx-auto"
+                  (click)="resetFilters()">
+                  <mat-icon>restart_alt</mat-icon>
+                </button>
+              </div>
+            </form>
+          </div>
+    </mat-sidenav>
+  </mat-sidenav-container>
+</div>
+
+<ngx-loading [show]="loading"></ngx-loading>

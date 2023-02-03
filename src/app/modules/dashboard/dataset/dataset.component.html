@@ -1,0 +1,18 @@
+<div class="dataset" *ngIf="dataset">
+  <button
+    *ngIf="dataset.selected"
+    (click)="dataset.selected = !dataset.selected"
+    mat-raised-button
+    color="primary"
+    class="dataset__button">
+    {{ dataset.name }}
+  </button>
+  <button
+    *ngIf="!dataset.selected"
+    (click)="dataset.selected = !dataset.selected"
+    mat-stroked-button
+    color="primary"
+    class="dataset__button">
+    {{ dataset.name }}
+  </button>
+</div>

@@ -1,0 +1,48 @@
+/* You can add global styles to this file, and also import other style files */
+
+html, body { height: 100%; }
+body {
+  margin: 0;
+  font-family: 'Kanit', sans-serif !important;
+  background-color: rgb(134, 134, 134);
+}
+
+.fade {
+  animation: fadeInAnimation ease 3s;
+  animation-iteration-count: 1;
+  animation-fill-mode: forwards;
+}
+
+.fade-fast {
+  animation: fadeInAnimation ease 1s;
+  animation-iteration-count: 1;
+  animation-fill-mode: forwards;
+}
+
+  * {
+    scrollbar-width: auto;
+    scrollbar-color: #4c4c4c #ffffff;
+  }
+
+  *::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  *::-webkit-scrollbar-track {
+    background: #ffffff;
+  }
+
+  *::-webkit-scrollbar-thumb {
+    background-color: #4c4c4c;
+    border-radius: 10px;
+    border: -1px none #ffffff;
+  }
+
+@keyframes fadeInAnimation {
+  0% {
+      opacity: 0;
+  }
+  100% {
+      opacity: 1;
+  }
+}

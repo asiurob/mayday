@@ -1,0 +1,113 @@
+
+@use '@angular/material' as mat;
+@import '../../../assets/ui/themes.scss';
+
+.dashboard {
+  &__mayday {
+    font-size: 2rem;
+    font-weight: bold;
+    color: #fff;
+    letter-spacing: 0.5rem !important;
+  }
+
+  &__spacer {
+    flex: 1 1 auto;
+  }
+
+  &__person {
+    font-size: 1rem !important;
+    color: #fff;
+    font-weight: lighter !important;
+  }
+
+  &__avatar {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    margin-right: 1rem;
+  }
+
+  &__power-off {
+    color: #fff;
+    margin-left: 0.8rem;
+    cursor: pointer;
+  }
+
+  &__content {
+    height: calc(100vh - 64px);
+    padding-top: 1rem;
+    width: 85vw;
+  }
+
+  &__sidenav-container {
+    background-color: inherit;
+  }
+
+  &__sidenav {
+    width: 12.5%;
+  }
+
+  &__sidenav-filters {
+    width: 20%;
+    overflow: hidden !important;
+  }
+
+  &__logo {
+    display: block;
+    margin: 0 auto;
+    width: 75%;
+    padding-top: 1rem;
+  }
+
+  &__chart-name {
+    position: absolute;
+    top: 5px;
+    left: 5px;
+  }
+
+  &__filter-title {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #000;
+    letter-spacing: 0.5rem !important;
+    text-align: center;
+  }
+
+
+
+  &__empty-state {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: calc(100% - 64px);
+    width: 100%;
+    font-size: 5rem;
+    font-weight: bold;
+    color: #ccc;
+    text-align: center;
+  }
+
+
+}
+
+::ng-deep .mat-drawer-inner-container {
+  overflow-x: hidden !important;
+}
+
+
+@media only screen and (max-width: 768px) {
+  .dashboard {
+    &__content {
+      height: calc(100vh - 56px);
+      width: 100vw;
+    }
+
+    &__sidenav, &__sidenav-filters {
+      width: 75%;
+    }
+
+    &__avatar {
+      display: none;
+    }
+  }
+}
